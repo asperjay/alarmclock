@@ -1,6 +1,8 @@
 import openai
-with open("/Users/jasper/alarm_config.txt",'r') as content: # this file contains api key
-    openai.api_key = content.read()[:-1] # remove \n
+import sys
+sys.path.append('/Users/jasper/Desktop')   
+import alarm_config
+openai.api_key = alarm_config.API_KEY
 def get_completion(prompt, model="gpt-3.5-turbo"):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
