@@ -40,11 +40,18 @@ class MyRequestHandler(http.server.BaseHTTPRequestHandler):
         # Set response headers (optional)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        userText = request_path[
-        /?q=Set+an+alarm+for+6+pm
-        response = get_completion(prompt+)
+        userText = ''
+        for i in request_path[3:]: # replace + with space and take off the /?q
+            if i=="+":
+                userText += " "
+            else:
+                userText += i
+        # get response from LLM
+        completion = get_completion(prompt+userText)
+        time = completion.split('\n')[0][7:]
+        response = completion.split('\n')[1][10:]
         # Construct the response content (HTML in this case) including the client's request path
-        response_content = f"<html><body><h1>Hello, world! You requested: {request_path}</h1></body></html>"
+        response_content = f"<html><body><h1>{response}</h1></body></html>"
         self.wfile.write(response_content.encode("utf-8"))
 
 # Create an HTTP server using the custom request handler
