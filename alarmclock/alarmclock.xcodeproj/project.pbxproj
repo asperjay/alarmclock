@@ -14,6 +14,7 @@
 		A413A56A2A7CAC72002D9BB8 /* alarmclockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A413A5692A7CAC72002D9BB8 /* alarmclockTests.swift */; };
 		A413A5742A7CAC73002D9BB8 /* alarmclockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A413A5732A7CAC73002D9BB8 /* alarmclockUITests.swift */; };
 		A413A5762A7CAC73002D9BB8 /* alarmclockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A413A5752A7CAC73002D9BB8 /* alarmclockUITestsLaunchTests.swift */; };
+		A4A70D4D2A80865A00E15E08 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A70D4C2A80865A00E15E08 /* SpeechRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,8 @@
 		A413A56F2A7CAC73002D9BB8 /* alarmclockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = alarmclockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A413A5732A7CAC73002D9BB8 /* alarmclockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alarmclockUITests.swift; sourceTree = "<group>"; };
 		A413A5752A7CAC73002D9BB8 /* alarmclockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alarmclockUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A4A70D482A7CC73C00E15E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A4A70D4C2A80865A00E15E08 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +97,12 @@
 		A413A5572A7CAC6D002D9BB8 /* alarmclock */ = {
 			isa = PBXGroup;
 			children = (
+				A4A70D482A7CC73C00E15E08 /* Info.plist */,
 				A413A5582A7CAC6D002D9BB8 /* alarmclockApp.swift */,
 				A413A55A2A7CAC6D002D9BB8 /* ContentView.swift */,
 				A413A55C2A7CAC72002D9BB8 /* Assets.xcassets */,
 				A413A55E2A7CAC72002D9BB8 /* Preview Content */,
+				A4A70D4C2A80865A00E15E08 /* SpeechRecognizer.swift */,
 			);
 			path = alarmclock;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 			files = (
 				A413A55B2A7CAC6D002D9BB8 /* ContentView.swift in Sources */,
 				A413A5592A7CAC6D002D9BB8 /* alarmclockApp.swift in Sources */,
+				A4A70D4D2A80865A00E15E08 /* SpeechRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +425,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"alarmclock/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = alarmclock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio is recorded to transcribe the meeting.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "You can view a text transcription of your meeting in the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -447,6 +458,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"alarmclock/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = alarmclock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio is recorded to transcribe the meeting.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "You can view a text transcription of your meeting in the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

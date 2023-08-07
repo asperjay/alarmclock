@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import Speech
 
 @main
 struct alarmclockApp: App {
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
     }
+    
 }
+
