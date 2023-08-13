@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import openai
 import sys
+import json
 sys.path.append('/Users/jasper/Desktop')
 import alarm_config
 openai.api_key = alarm_config.API_KEY
@@ -26,7 +27,7 @@ Response: All alarms have been cancelled
 Input: """
 
 # Choose a port number for your server
-PORT = 8000
+PORT = 8001
 
 # Define a custom request handler by subclassing BaseHTTPRequestHandler
 class MyRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -37,22 +38,31 @@ class MyRequestHandler(http.server.BaseHTTPRequestHandler):
         # Send response status code
         self.send_response(200)
 
-        # Set response headers (optional)
-        self.send_header("Content-type", "text/html")
+        # Set response headers for JSON
+        self.send_header("Content-type", "application/json")
         self.end_headers()
+
         userText = ''
         for i in request_path[3:]: # replace + with space and take off the /?q
-            if i=="+":
+            if i == "+":
                 userText += " "
             else:
                 userText += i
+
         # get response from LLM
-        completion = get_completion(prompt+userText)
+        completion = get_completion(prompt + userText)
         time = completion.split('\n')[0][7:]
         response = completion.split('\n')[1][10:]
-        # Construct the response content (HTML in this case) including the client's request path
-        response_content = f"<html><body><h1>{response}</h1></body></html>"
-        self.wfile.write(response_content.encode("utf-8"))
+
+        # Construct the JSON response
+        response_data = {
+            "times": time,
+            "response": response
+        }
+        response_json = json.dumps(response_data)
+
+        # Write the JSON response
+        self.wfile.write(response_json.encode("utf-8"))
 
 # Create an HTTP server using the custom request handler
 with socketserver.TCPServer(("", PORT), MyRequestHandler) as server:

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Alamofire
 
 struct ContentView: View {
     @StateObject var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
+    @State var outputText = ""
     
     private func startRecording() {
         speechRecognizer.resetTranscript()
@@ -20,7 +22,29 @@ struct ContentView: View {
     private func stopRecording() {
         speechRecognizer.stopTranscribing()
         isRecording = false
-        // put python calls here
+        // server calls here
+        let parameters: [String: Any] = [
+            "q": speechRecognizer.transcript
+        ]
+
+        // Create URL components and set the base URL
+        var urlComponents = URLComponents(string: "http://localhost:8001")!
+        urlComponents.queryItems = parameters.map { key, value in
+            URLQueryItem(name: key, value: "\(value)")
+        }
+
+        // Create the URL from URL components
+        let url = urlComponents.url!
+
+        // Make the request with Alamofire
+        AF.request(url).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                print("Response JSON: \(value)")
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
     }
     
     var body: some View {
