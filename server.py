@@ -27,7 +27,7 @@ Response: All alarms have been cancelled
 Input: """
 
 # Choose a port number for your server
-PORT = 8001
+PORT = 8000
 
 # Define a custom request handler by subclassing BaseHTTPRequestHandler
 class MyRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -56,7 +56,7 @@ class MyRequestHandler(http.server.BaseHTTPRequestHandler):
 
         # Construct the JSON response
         response_data = {
-            "times": time,
+            "times": time.split('\n'),
             "response": response
         }
         response_json = json.dumps(response_data)

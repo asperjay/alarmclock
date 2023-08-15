@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
-import Alamofire
 import Foundation
 
+struct ServerResponse: Decodable {
+    let response: String
+    let times: [Date]
+}
 struct ContentView: View {
     @StateObject var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
@@ -31,50 +34,31 @@ struct ContentView: View {
         ]
 
         // Create URL components and set the base URL
-        var urlComponents = URLComponents(string: "http://localhost:8001")!
+        var urlComponents = URLComponents(string: "http://localhost:8000")!
         urlComponents.queryItems = parameters.map { key, value in
             URLQueryItem(name: key, value: "\(value)")
         }
 
         // Create the URL from URL components
         let url = urlComponents.url!
-
-        // Make the request with Alamofire
-        /* AF.request(url).responseDecodable(of: [String: String].self) { response in
-            switch response.result {
-            case .success(let value):
-                print("Response JSON: \(value)")
-            case .failure(let error):
-                print("Error: \(error)")
-            }
-        } */
         
         // setup date formatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         // extract json values
-        fetchData(from: "your_api_endpoint_here") { responseValue, timesValue, error in
-            if let responseValue = responseValue, let timesValue = timesValue {
-                self.timesValue = timesValue // Store the timesValue in the view's state
-                parseJSON(responseValue: responseValue, timesValue: timesValue)
-            } else if let error = error {
-                print("Error: \(error)")
-            }
+        // setup decoder
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        guard let data = try? Data(contentsOf: url) else {
+            return
         }
-        print(formattedDate)
+        guard let decodedServerResponse = try? decoder.decode(ServerResponse.self, from: data) else {
+            print("Cannot decode")
+            return
+        }
+        print(decodedServerResponse.times)
         
     }
-    var formattedDate: String {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
-            if let date = dateFormatter.date(from: timesValue) {
-                let formattedDateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
-                return formattedDateString
-            } else {
-                return "Invalid Date"
-            }
-        }
     var body: some View {
         VStack {
             Button(action: {
@@ -93,40 +77,9 @@ struct ContentView: View {
         }
         .padding(100)
     }
-    func toggleListening() {
-        
-    }
     
 }
-func fetchData(from url: String, completion: @escaping (String?, String?, Error?) -> Void) {
-    AF.request(url).responseDecodable(of: [String: String].self) { response in
-        switch response.result {
-        case .success(let value):
-            let responseValue = value["response"]
-            let timesValue = value["times"]
-            completion(responseValue, timesValue, nil)
-        case .failure(let error):
-            completion(nil, nil, error)
-        }
-    }
-}
-func parseJSON(responseValue: String?, timesValue: String?) {
-    if let responseValue = responseValue, let timesValue = timesValue {
-        if let jsonData = responseValue.data(using: .utf8) {
-            do {
-                if let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? NSDictionary {
-                    // Use responseValue and timesValue here
-                    if let jsonResponseValue = json["response"] as? String,
-                       let jsonTimesValue = json["times"] as? String {
-                        // Use jsonResponseValue and jsonTimesValue
-                    }
-                }
-            } catch {
-                print("Error parsing JSON: \(error.localizedDescription)")
-            }
-        }
-    }
-}
+
 
 
 
