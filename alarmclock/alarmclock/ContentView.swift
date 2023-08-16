@@ -12,6 +12,25 @@ struct ServerResponse: Decodable {
     let response: String
     let times: [Date]
 }
+func scheduleNotification(at date: Date, withTitle title: String, andBody body: String) {
+    let content = UNMutableNotificationContent()
+    content.title = title
+    content.body = body
+    content.sound = UNNotificationSound.default
+    
+    let calendar = Calendar.current
+    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+    let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+    
+    let request = UNNotificationRequest(identifier: "notificationID", content: content, trigger: trigger)
+    UNUserNotificationCenter.current().add(request) { (error) in
+        if let error = error {
+            print("Error scheduling notification: \(error.localizedDescription)")
+        } else {
+            print("Notification scheduled successfully")
+        }
+    }
+}
 struct ContentView: View {
     @StateObject var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
