@@ -4,6 +4,7 @@ import openai
 import sys
 import json
 sys.path.append('/Users/jasper/Desktop')
+import datetime
 import alarm_config
 openai.api_key = alarm_config.API_KEY
 def get_completion(prompt, model="gpt-3.5-turbo"):
@@ -14,21 +15,16 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
         temperature=0,
     )
     return response.choices[0].message["content"]
-prompt = """You are an alarm clock, and the current date/time is August 6, 2023 at 11:19 pm. As input you get a user's requests to set alarms. Output both a time, or list of times separated by line breaks, of when to set the alarm in year, month, day, hour, minutes, seconds format. This list is prefaced by the text "Times:" and a new line, and may be blank. Then, output a text output in response to the user prefaced by "Response:". You may ask for clarification. User input is prefaced by "Input:". For instance:
-Input: Set an alarm for 6 pm tomorrow.
-Times: 2023-06-30 06:00:00
-Response: I have set an alarm for tomorrow at 6 pm.
-Input: set another for eleven
-Times: 2023-06-30 06:00:00
-Response: Is that eleven in the morning, or in the evening?
-Input: nevermind, just cancel everything
-Times:
-Response: All alarms have been cancelled
-Input: """
+current_date_time = datetime.datetime.now()
+formatted_date_time = current_date_time.strftime("%Y-%m-%d %H:%M:%S")
+prompt1 = "The current date and time is 10:08pm august 16 2023"+""".
+Convert the following message into a list of precise dates and times:
+"""
+prompt2 = """
+Assume that the user asks for a single alarm unlesss they specify otherwise. Please return this information in JSON format as a single dictionary with two keys. The first key should be “times” and the value a JSON array of ISO 8601 formatted date+times. The second key should be “response” and the value a message summarizing the dates."""
 
 # Choose a port number for your server
-PORT = 8000
-
+PORT = 8001
 # Define a custom request handler by subclassing BaseHTTPRequestHandler
 class MyRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -50,19 +46,10 @@ class MyRequestHandler(http.server.BaseHTTPRequestHandler):
                 userText += i
 
         # get response from LLM
-        completion = get_completion(prompt + userText)
-        time = completion.split('\n')[0][7:]
-        response = completion.split('\n')[1][10:]
-
-        # Construct the JSON response
-        response_data = {
-            "times": time.split('\n'),
-            "response": response
-        }
-        response_json = json.dumps(response_data)
-
+        completion = get_completion(prompt1 + userText + prompt2)
+        print(completion)
         # Write the JSON response
-        self.wfile.write(response_json.encode("utf-8"))
+        self.wfile.write(completion.encode("utf-8"))
 
 # Create an HTTP server using the custom request handler
 with socketserver.TCPServer(("", PORT), MyRequestHandler) as server:

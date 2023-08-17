@@ -9,27 +9,35 @@ import SwiftUI
 import Foundation
 
 struct ServerResponse: Decodable {
-    let response: String
     let times: [Date]
+    let response: String
 }
-func scheduleNotification(at date: Date, withTitle title: String, andBody body: String) {
+func scheduleNotification(date: Date, title: String, body: String) {
     let content = UNMutableNotificationContent()
     content.title = title
     content.body = body
     content.sound = UNNotificationSound.default
     
     let calendar = Calendar.current
-    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
     let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
     
     let request = UNNotificationRequest(identifier: "notificationID", content: content, trigger: trigger)
-    UNUserNotificationCenter.current().add(request) { (error) in
-        if let error = error {
-            print("Error scheduling notification: \(error.localizedDescription)")
+    print(date)
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        if granted {
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if let error = error {
+                    print("Error scheduling notification: \(error.localizedDescription)")
+                } else {
+                    print("Notification scheduled successfully")
+                }
+            }
         } else {
-            print("Notification scheduled successfully")
+            print("!!!")
         }
     }
+    
 }
 struct ContentView: View {
     @StateObject var speechRecognizer = SpeechRecognizer()
@@ -37,6 +45,7 @@ struct ContentView: View {
     @State private var timesValue = ""
     @State private var responseValue = ""
     @State var outputText = ""
+    @State var LLMresponse = ""
     
     private func startRecording() {
         speechRecognizer.resetTranscript()
@@ -53,7 +62,7 @@ struct ContentView: View {
         ]
 
         // Create URL components and set the base URL
-        var urlComponents = URLComponents(string: "http://localhost:8000")!
+        var urlComponents = URLComponents(string: "http://10.0.4.72:8001")!
         urlComponents.queryItems = parameters.map { key, value in
             URLQueryItem(name: key, value: "\(value)")
         }
@@ -63,19 +72,29 @@ struct ContentView: View {
         
         // setup date formatter
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         // extract json values
         // setup decoder
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         guard let data = try? Data(contentsOf: url) else {
+            print("connection err")
             return
         }
-        guard let decodedServerResponse = try? decoder.decode(ServerResponse.self, from: data) else {
-            print("Cannot decode")
-            return
+        print(String(decoding: data, as: UTF8.self))
+        do {
+            let decodedServerResponse = try decoder.decode(ServerResponse.self, from: data)
+            let calendar = Calendar.current
+            for alarmDate in decodedServerResponse.times {
+                print(alarmDate)
+                print(calendar.date(byAdding: .hour, value: -7, to: alarmDate)!)
+                scheduleNotification(date: calendar.date(byAdding: .hour, value: 0, to: alarmDate)!, title: "Alarm", body: "Alarm")
+            }
+            LLMresponse = decodedServerResponse.response
+        } catch {
+            print("JSON decoding error:", error.localizedDescription)
+            print(error)
         }
-        print(decodedServerResponse.times)
         
     }
     var body: some View {
@@ -93,6 +112,7 @@ struct ContentView: View {
             }
             .controlSize(.large)
             Text(speechRecognizer.transcript)
+            Text(LLMresponse)
         }
         .padding(100)
     }
