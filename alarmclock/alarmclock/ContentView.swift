@@ -62,7 +62,7 @@ struct ContentView: View {
         ]
 
         // Create URL components and set the base URL
-        var urlComponents = URLComponents(string: "http://10.0.4.72:8001")!
+        var urlComponents = URLComponents(string: "http://10.0.4.72:8000")!
         urlComponents.queryItems = parameters.map { key, value in
             URLQueryItem(name: key, value: "\(value)")
         }

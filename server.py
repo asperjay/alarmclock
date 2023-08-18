@@ -17,14 +17,14 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     return response.choices[0].message["content"]
 current_date_time = datetime.datetime.now()
 formatted_date_time = current_date_time.strftime("%Y-%m-%d %H:%M:%S")
-prompt1 = "The current date and time is 10:08pm august 16 2023"+""".
+prompt1 = "The current date and time is 12:14pm august 17 2023"+""".
 Convert the following message into a list of precise dates and times:
 """
 prompt2 = """
 Assume that the user asks for a single alarm unlesss they specify otherwise. Please return this information in JSON format as a single dictionary with two keys. The first key should be “times” and the value a JSON array of ISO 8601 formatted date+times. The second key should be “response” and the value a message summarizing the dates."""
 
 # Choose a port number for your server
-PORT = 8001
+PORT = 8000
 # Define a custom request handler by subclassing BaseHTTPRequestHandler
 class MyRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
