@@ -17,7 +17,7 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     return response.choices[0].message["content"]
 current_date_time = datetime.datetime.now()
 formatted_date_time = current_date_time.strftime("%Y-%m-%d %H:%M:%S")
-prompt1 = "The current date and time is 12:14pm august 17 2023"+""".
+prompt1 = "The current date and time is "+formatted_date_time+""".
 Convert the following message into a list of precise dates and times:
 """
 prompt2 = """
