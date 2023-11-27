@@ -46,6 +46,10 @@ struct ContentView: View {
     @State private var responseValue = ""
     @State var outputText = ""
     @State var LLMresponse = ""
+    @State private var textInput: String = ""
+    private var query: String {
+        return textInput.count == 0 ? speechRecognizer.transcript : textInput
+    }
     
     private func startRecording() {
         speechRecognizer.resetTranscript()
@@ -58,7 +62,7 @@ struct ContentView: View {
         isRecording = false
         // server calls here
         let parameters: [String: Any] = [
-            "q": speechRecognizer.transcript
+            "q": query
         ]
 
         // Create URL components and set the base URL
@@ -111,7 +115,12 @@ struct ContentView: View {
                 .scaledToFit()
             }
             .controlSize(.large)
-            Text(speechRecognizer.transcript)
+            TextField("Alternatively, enter text here", text: $textInput)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            Text("\(query)")
+                .padding()
             Text(LLMresponse)
         }
         .padding(100)
