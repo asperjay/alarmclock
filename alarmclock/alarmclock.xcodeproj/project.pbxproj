@@ -33,6 +33,13 @@
 			remoteGlobalIDString = A413A5542A7CAC6D002D9BB8;
 			remoteInfo = alarmclock;
 		};
+		A4E54F812B21243C00253225 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A413A54D2A7CAC6D002D9BB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A413A5542A7CAC6D002D9BB8;
+			remoteInfo = alarmclock;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +55,7 @@
 		A413A5752A7CAC73002D9BB8 /* alarmclockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alarmclockUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A4A70D482A7CC73C00E15E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A4A70D4C2A80865A00E15E08 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		A4E54F7D2B21243C00253225 /* alarmclockXCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = alarmclockXCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +81,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A4E54F7A2B21243C00253225 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -92,6 +107,7 @@
 				A413A5552A7CAC6D002D9BB8 /* alarmclock.app */,
 				A413A5652A7CAC72002D9BB8 /* alarmclockTests.xctest */,
 				A413A56F2A7CAC73002D9BB8 /* alarmclockUITests.xctest */,
+				A4E54F7D2B21243C00253225 /* alarmclockXCUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +209,24 @@
 			productReference = A413A56F2A7CAC73002D9BB8 /* alarmclockUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		A4E54F7C2B21243C00253225 /* alarmclockXCUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4E54F852B21243C00253225 /* Build configuration list for PBXNativeTarget "alarmclockXCUITests" */;
+			buildPhases = (
+				A4E54F792B21243C00253225 /* Sources */,
+				A4E54F7A2B21243C00253225 /* Frameworks */,
+				A4E54F7B2B21243C00253225 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A4E54F822B21243C00253225 /* PBXTargetDependency */,
+			);
+			name = alarmclockXCUITests;
+			productName = alarmclockXCUITests;
+			productReference = A4E54F7D2B21243C00253225 /* alarmclockXCUITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -200,7 +234,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					A413A5542A7CAC6D002D9BB8 = {
@@ -212,6 +246,10 @@
 					};
 					A413A56E2A7CAC73002D9BB8 = {
 						CreatedOnToolsVersion = 14.2;
+						TestTargetID = A413A5542A7CAC6D002D9BB8;
+					};
+					A4E54F7C2B21243C00253225 = {
+						CreatedOnToolsVersion = 14.3.1;
 						TestTargetID = A413A5542A7CAC6D002D9BB8;
 					};
 				};
@@ -235,6 +273,7 @@
 				A413A5542A7CAC6D002D9BB8 /* alarmclock */,
 				A413A5642A7CAC72002D9BB8 /* alarmclockTests */,
 				A413A56E2A7CAC73002D9BB8 /* alarmclockUITests */,
+				A4E54F7C2B21243C00253225 /* alarmclockXCUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -257,6 +296,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A413A56D2A7CAC73002D9BB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4E54F7B2B21243C00253225 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,6 +339,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A4E54F792B21243C00253225 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -305,6 +358,11 @@
 			isa = PBXTargetDependency;
 			target = A413A5542A7CAC6D002D9BB8 /* alarmclock */;
 			targetProxy = A413A5702A7CAC73002D9BB8 /* PBXContainerItemProxy */;
+		};
+		A4E54F822B21243C00253225 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A413A5542A7CAC6D002D9BB8 /* alarmclock */;
+			targetProxy = A4E54F812B21243C00253225 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -563,6 +621,42 @@
 			};
 			name = Release;
 		};
+		A4E54F832B21243C00253225 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Jasper.alarmclockXCUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/alarmclock.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/alarmclock";
+			};
+			name = Debug;
+		};
+		A4E54F842B21243C00253225 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Jasper.alarmclockXCUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/alarmclock.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/alarmclock";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -598,6 +692,15 @@
 			buildConfigurations = (
 				A413A5802A7CAC73002D9BB8 /* Debug */,
 				A413A5812A7CAC73002D9BB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4E54F852B21243C00253225 /* Build configuration list for PBXNativeTarget "alarmclockXCUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4E54F832B21243C00253225 /* Debug */,
+				A4E54F842B21243C00253225 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
